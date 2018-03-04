@@ -3,7 +3,6 @@
 if [ ! -z "$CI" ]; then
   . "$HOME/.asdf/asdf.sh"
 fi
-
 node_modules/.bin/brunch build
 
 mix compile --force --warnings-as-errors
