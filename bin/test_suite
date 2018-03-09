@@ -1,9 +1,19 @@
-#!/bin/bash
+#!/bin/sh
+set -e
+
+kill_phantoms() {
+  echo "Killing phantomjs processes"
+  pkill -f "wallaby-joydrive"
+}
+
+trap kill_phantoms INT
 
 if [ ! -z "$CI" ]; then
+  # shellcheck source=/dev/null
   . "$HOME/.asdf/asdf.sh"
 fi
 node_modules/.bin/brunch build
-
 mix compile --force --warnings-as-errors
+
 mix test
+kill_phantoms
